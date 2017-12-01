@@ -17,13 +17,12 @@ var connection = _mysql.createConnection({
   database: 'leaktl'
 });
 
-// //创建一个数据库连接
-// connection.connect(function (err) {
-//   if (err) {
-//     console.log('connect-' + err);
-//   }
-//   console.log('connect succeed...');
-// });
+connection.connect(function (err) {
+  if (err) {
+    console.log('connect-' + err);
+  }
+  console.log('connect succeed...');
+});
 
 //封装mysql query
 db.query =function(sql,fn){
