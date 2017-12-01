@@ -10,6 +10,7 @@
   "author": "haoranx",
   "license": "ISC",
   "dependencies": {
+    "log4js": "^2.3.12",
     "mysql": "^2.15.0",
     "q": "^1.5.1"
   }
