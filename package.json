@@ -1,0 +1,16 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "run test",
+    "start": "node main.js"
+  },
+  "author": "haoranx",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.15.0",
+    "q": "^1.5.1"
+  }
+}
