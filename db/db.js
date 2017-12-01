@@ -18,7 +18,7 @@ var db={};
 // });
 
 var pool  = _mysql.createPool({
-  connectionLimit : 10,
+  connectionLimit : 100,
   host            : '192.168.5.76',
   user            : 'root',
   password        : 'kotei$88',
@@ -38,19 +38,19 @@ db.query =function(sql,fn){
   if(!sql){
     defer.reject('脚本不能为空');
   }
-
-  pool.query(sql,function (err, rows,fileds) {
-    if (err) {
-      defer.reject("query-" + err);
-    }
-
-    // connection.end(function(errc){
-    //   if(errc){
-    //     console.log('关闭数据库链接失败')
-    //   }
-    // });
-
-    defer.resolve(rows);
+  pool.getConnection(function(err, connection) {
+    pool.query(sql,function (err, rows,fileds) {
+      connection.release();
+      if (err) {
+        defer.reject("query-" + err);
+      }
+      // connection.end(function(errc){
+      //   if(errc){
+      //     console.log('关闭数据库链接失败')
+      //   }
+      // });
+      defer.resolve(rows);
+    });
   });
 
   return defer.promise;
