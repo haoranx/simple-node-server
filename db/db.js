@@ -18,7 +18,7 @@ var db={};
 // });
 
 var pool  = _mysql.createPool({
-  connectionLimit : 100,
+  connectionLimit : 0,//无限制
   host            : '192.168.5.76',
   user            : 'root',
   password        : 'kotei$88',
@@ -31,6 +31,10 @@ var pool  = _mysql.createPool({
 //   }
 //   console.log('connect succeed...');
 // });
+
+pool.on('acquire', function (connection) {
+  console.log('Connection %d acquired', connection.threadId);
+});
 
 //封装mysql query
 db.query =function(sql,fn){
