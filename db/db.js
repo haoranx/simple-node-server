@@ -17,13 +17,13 @@ var connection = _mysql.createConnection({
   database: 'leaktl'
 });
 
-//创建一个数据库连接
-connection.connect(function (err) {
-  if (err) {
-    console.log('connect-' + err);
-  }
-  console.log('connect succeed...');
-});
+// //创建一个数据库连接
+// connection.connect(function (err) {
+//   if (err) {
+//     console.log('connect-' + err);
+//   }
+//   console.log('connect succeed...');
+// });
 
 //封装mysql query
 db.query =function(sql,fn){
@@ -36,12 +36,14 @@ db.query =function(sql,fn){
     if (err) {
       defer.reject("query-" + err);
     }
-    defer.resolve(rows);
+
     // connection.end(function(errc){
     //   if(errc){
     //     console.log('关闭数据库链接失败')
     //   }
     // });
+
+    defer.resolve(rows);
   });
 
   return defer.promise;
