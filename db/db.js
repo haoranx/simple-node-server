@@ -48,19 +48,16 @@ db.query =function(sql,fn){
       if (err) {
         defer.reject("query-" + err);
       }
-      // connection.end(function(errc){
-      //   if(errc){
-      //     console.log('关闭数据库链接失败')
-      //   }
-      // });
-      defer.resolve(rows);
+      if(rows.length>0){
+        defer.resolve(rows);
+      }else{
+        defer.reject("can't find user" );
+      }
     });
   });
 
   return defer.promise;
 }
-
-
 
 module.exports = db;
 

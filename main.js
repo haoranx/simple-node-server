@@ -8,29 +8,23 @@ var path = require('path');
 var _log =require('./logger');
 var staffService = require('./api/staff.js');
 
-
-// mysql.query(_sql, function (err, rows) {
-//     if (err) {
-//         console.log("query-" + err);
-//     }
-//     console.log("query succeed..." + rows);
-// });
-
-// mysql.end(function (err) {
-//     if (err) {
-//         return;
-//     }
-//     console.log("close succeed...");
-// });
-
 var server = http.createServer(function (request, response) {
-    staffService.getStaffByAccount('chaoguan').then(function (res) {
-        console.table(JSON.stringify(res));
+    var pathname = url.parse(request.url).pathname;
+    pathname =pathname.replace(/\//ig,'');
+    staffService.getStaffByAccount(pathname).then(function (res) {
         response.writeHead(200, {
             'Content-Type': 'application/json'
         });
+        if(res[0].SIGNATURE){
+            try{
+                fs.writeFileSync('SIGNATURE.png',res[0].SIGNATURE);
+            }catch(e){
+
+            }
+        }
         response.write(JSON.stringify(res));
         response.end();
+        _log.info('数据请求成功！')
     }, function (error) {
         response.writeHead(404, {
             'Content-Type': 'text/plain'
